@@ -1,0 +1,37 @@
+# Copy-on-Write Loot directory for metasploit.
+# (c) Copyright 2013 Jason Thistlethwaite
+#
+# Set RFS_DIR and RFS_SERVER to point to an SSH server to store
+# your loot on then run globalfs.loot start. Any new files
+# written to /opt/metasploit/apps/pro/loot will be transparently
+# saved on the remote system.
+#
+# This also overlays the contents of /root/.msf4/loot into
+# /opt/metasploit/apps/pro/loot
+#
+# Place this file in in /etc/defaults, /etc/conf.d, or ~/.globalfs
+# and either copy or symlink the globalfs script to globalfs.loot
+# and mark it executable.
+#
+# Your setup should look something like this:
+# /etc/defaults/globalfs.loot (This file)
+# ln -s /usr/local/bin/globalfs /usr/local/bin/globalfs.loot
+
+#CONFIG_PATH="/etc/default;/etc/conf.d;~/.globalfs"
+
+# Type of filesystem to use as backend storage
+RFS_TYPE="fuse.sshfs"
+
+# Extra mount options for mounting the remote filesystem
+RFS_OPTS="uid=daemon,gid=root,umask=007,allow_other"
+
+# IP or Hostname of the server hosting the remote filesystem
+RFS_SERVER="192.168.1.13"
+
+# Login name to use when connecting to the remote server
+RFS_LOGIN="looter"
+
+RFS_DIR="/opt/archive/loot"
+
+#AUFS_DIRSTACK="/opt/metasploit/apps/pro/loot;/root/.msf4/loot"
+AUFS_TARGET="/opt/metasploit/apps/pro/loot"

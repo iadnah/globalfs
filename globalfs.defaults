@@ -1,0 +1,56 @@
+# Rename this file to globalfs and place it in /etc/defaults, /etc/conf.d, or ~/.globalfs
+# to configure globalfs.
+#
+# At runtime globalfs checks each directory in $CONFIG_PATH for files named after the
+# script which started globalfs.
+#
+# By default $SVC_NAME and $RUN_NAME are checked for, where:
+# $SVC_NAME = the name of the script up to the first "." encountered in the filename
+#    Ex1: If your script is called globalfs.loot SVC_NAME will be globalfs
+#    Ex2: If your script is called rofl.archive SVC_NAME will be rofl
+#
+# $RUN_NAME = the basename of the script
+#    Ex1: If your script is called globalfs.loot RUN_NAME will be globalfs.loot
+#    Ex2: If your script is called rofl.archive RUN_NAME will be rofl.archive
+#
+# globalfs will include all config files found in CONFIG_PATH, including files
+# matching SVC_NAME before files named RUN_NAME. These config files should be
+# standard bash scripts which set environment variables to control globalfs
+#
+# The default variables are below
+
+# This controls where aufs is mounted. This must be set.
+AUFS_TARGET=""
+
+# Type of filesystem to use as backend storage
+# Check documentation for supported filesystem types
+#RFS_TYPE="fuse.sshfs"
+
+# Extra mount options for mounting the remote filesystem
+# NOTE: This currently overwrites the default if you change this at all.
+#       You may just want to uncomment the default below and edit it.
+#RFS_OPTS="allow_other,sshfs_sync"
+
+# IP or Hostname of the server hosting the remote filesystem
+#RFS_SERVER="darkstar"
+
+# Login name to use when connecting to the remote server
+#RFS_LOGIN="$USER"
+
+# Local directory to use as mountpoint for the remote filesystem
+# Defaults to /mnt/globalfs.$SUB_NAME if not set
+# RFS_MOUNTPOINT="/mnt/globalfs.loot"
+
+###########################################################
+## Advanced Options - Here be dragons
+###########################################################
+
+# Uncomment to create missing mount points. Use with caution
+#RFS_MKDIR=1
+
+#CONFIG_PATH="/etc/default;/etc/conf.d;${HOME}/.globalfs"
+
+# Explicitly set the URI of the remote filesystem.
+# For advanced users.
+#RFS_URI=""}
+
